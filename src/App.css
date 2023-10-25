@@ -1,5 +1,35 @@
+body{
+    background-color: rgb(123, 193, 255);
+    animation: changeBg 10s linear infinite;
+}
+@keyframes changeBg{
+     0%{
+        background-color: rgb(200 93 191);
+     }
+     20%{
+        background-color: rgb(93 93 200);
+     }
+     40%{
+        background-color: rgb(93 148 200);
+     }
+     60%{
+        background-color: rgb(93 200 122);
+     }
+     70%{
+        background-color: rgb(228, 221, 31);
+     }
+     80%{
+        background-color: rgb(191 200 93);
+     }
+     90%{
+        background-color: rgb(200 139 93);
+     }
+     100%{
+        background-color: rgb(200 93 191);
+     }
+}
 .backcolor{
-    background-color: rgb(255, 230, 198);
+    background-color: rgb(134, 255, 243);
 }
 
 .textarea{
@@ -27,20 +57,23 @@ input:focus{
     font-size: 21px;
 }
 .updateInput{
-    background-color: rgb(255, 230, 198);
+    background-color: rgb(215 203 36);
     font-family: 'Exo 2', sans-serif;
     font-size: 25px;
 }
 .updateInput:focus{
-    background-color: rgb(255, 230, 198);
+    background-color: rgb(215 203 36);
 }
 .updateTextarea{
-    background-color: rgb(255, 230, 198);
+    background-color: rgb(215 203 36);
     font-family: 'Playpen Sans', cursive;
     font-size: 21px;
 }
 .updateTextarea:focus{
-    background-color: rgb(255, 230, 198);
+    background-color: rgb(215 203 36);
+}
+.modalUpdate{
+    background-color: rgb(215 203 36);
 }
 .card{
     border: 1px solid black;

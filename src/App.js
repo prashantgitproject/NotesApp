@@ -3,6 +3,7 @@ import './App.css';
 import { Addnote } from './components/Addnote';
 import { Note } from './components/Note';
 import NoteContext from './context/noteContext';
+import Alert from './components/Alert';
 
 // to get the data from LS
 const getLocalItmes = () => {
@@ -16,22 +17,42 @@ const getLocalItmes = () => {
 
 function App() {
   const [items, setItems] = useState(getLocalItmes())
+  const [alert, setAlert] = useState(null)
+
+  const showAlert =(message, type) => {
+    setAlert({
+      msg: message,
+      type: type
+    })
+    setTimeout(() =>{
+      setAlert(null)
+    }, 2500)
+ }
 
   const addItem =(inputData)=>{
     if (!inputData.title) {
-      alert('plzz fill data');
+      // alert('Hey Dude! You gotta fill the data.');
+      showAlert("Hey Dude! You gotta fill the data.", "danger")
   }
   else {
     const allInputData = { id: new Date().getTime().toString(), name:inputData }
     setItems([...items, allInputData]);
+    showAlert("Your Note is Added", "success")
   }
 }
 
  const onDelete=(index)=>{
-  const updateItems = items.filter((elem)=>{
-    return index !== elem.id
-  })
-  setItems(updateItems);
+  let verify = window.confirm("Do you want to delete this Note?")
+  if(verify){
+    const updateItems = items.filter((elem)=>{
+      return index !== elem.id
+    })
+    setItems(updateItems);
+    showAlert("Your Note is deleted", "success")
+  }
+  else{
+    showAlert("Note not deleted", "danger")
+  }
  }
 
 
@@ -43,7 +64,6 @@ function App() {
 //                       ----------Updating Modal-------------
  const ref = useRef(null)
  const refClose = useRef(null)
- const textAreaRef = useRef(null)
   const [note, setNote] = useState({etitle: "", edescription: ""})
   const [isEditItem, setIsEditItem] = useState(null)
 
@@ -68,6 +88,7 @@ function App() {
         })
       )
       refClose.current.click()
+      showAlert("Your Note is Updated", "success")
     }
 
   const editItem = async (ide)=>{
@@ -86,13 +107,9 @@ function App() {
   localStorage.setItem('lists', JSON.stringify(items))
 }, [items]);
 
- useEffect(() =>{
-  textAreaRef.current.style.height = "auto"
-  textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
-}, [isEditItem])
-
   return (
     <NoteContext.Provider value={{items, addItem}}>
+    <Alert alert={alert}/>
 
 
 
@@ -101,7 +118,7 @@ function App() {
      
  <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div className="modal-dialog">
-     <div className="modal-content backcolor">
+     <div className="modal-content modalUpdate">
        <div className="modal-header">
          <h1 className="modal-title fs-5" id="exampleModalLabel">Update Note</h1>
          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -114,7 +131,7 @@ function App() {
            </div>
            <div className="mb-3">
              <label htmlFor="description" className="col-form-label" style={{fontSize: "20px"}}>Description:</label>
-             <textarea ref={textAreaRef} className="form-control updateTextarea" id="edescription" name='edescription' value={note.edescription} onChange={onChange}></textarea>
+             <textarea rows={15} className="form-control updateTextarea" id="edescription" name='edescription' value={note.edescription} onChange={onChange}></textarea>
            </div>
          </form>
        </div>
@@ -134,7 +151,7 @@ function App() {
       </div>
 
       <div className="row">
-        <div className="col-12 col-md-8">
+        <div className="col-12 col-md-8" style={{marginBottom: "100px"}}>
           <Addnote passNote={addItem}/>
         </div>
         <div className="col-12 col-md-4">
@@ -144,7 +161,7 @@ function App() {
                 <div key={elem.id}>
                   <Note
                   title={elem.name.title}
-                  description={elem.name.description}
+                  description={elem.name.description.slice(0, 200)}
                   id={elem.id}
                   deleteItem={onDelete}
                   updateNote={updateNote}

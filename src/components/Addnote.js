@@ -26,13 +26,13 @@ export const Addnote = (props) => {
 
   return (
     <div className="container">
-    <div className='backcolor textarea'>
+    <div className='backcolor textarea' style={{marginLeft: "-12px", marginRight: "-12px"}}>
         <div className="row ">
             <div className="col-10 ">
                 <input type="text" className='backcolor rounded-3 addInput' style={{width: "100%", padding: "7px", borderStyle: "none"}} name='title' value={inputData.title} onChange={onChange} placeholder='Title'/>
             </div>
             <div className="col-2 d-flex justify-content-end pt-2">
-                <div><i className="fa-solid fa-circle-plus fa-xl btn" style={{width: "100%"}} onClick={addEvent}></i> </div>
+                <div><i className="fa-solid fa-file-circle-plus fa-xl btn" style={{width: "100%"}} onClick={addEvent}></i> </div>
             
             </div>
         </div>

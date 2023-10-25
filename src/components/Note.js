@@ -12,8 +12,8 @@ export const Note = (props) => {
 
   return (
     <>
-    <div className="container">
-      <div className="card mt-2 backcolor " style={{width: "20rem"}}>
+    <div className="container d-flex justify-content-center">
+      <div className="card mb-4 backcolor " style={{width: "23rem"}}>
           <div className="card-body">
               <h5 className="card-title">{props.title}</h5>
               <p className="card-text">{props.description}</p>
