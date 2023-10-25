@@ -18,7 +18,7 @@ function App() {
   const [items, setItems] = useState(getLocalItmes())
 
   const addItem =(inputData)=>{
-    if (!inputData) {
+    if (!inputData.title) {
       alert('plzz fill data');
   }
   else {
@@ -43,6 +43,7 @@ function App() {
 //                       ----------Updating Modal-------------
  const ref = useRef(null)
  const refClose = useRef(null)
+ const textAreaRef = useRef(null)
   const [note, setNote] = useState({etitle: "", edescription: ""})
   const [isEditItem, setIsEditItem] = useState(null)
 
@@ -85,6 +86,11 @@ function App() {
   localStorage.setItem('lists', JSON.stringify(items))
 }, [items]);
 
+ useEffect(() =>{
+  textAreaRef.current.style.height = "auto"
+  textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
+}, [isEditItem])
+
   return (
     <NoteContext.Provider value={{items, addItem}}>
 
@@ -95,7 +101,7 @@ function App() {
      
  <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div className="modal-dialog">
-     <div className="modal-content">
+     <div className="modal-content backcolor">
        <div className="modal-header">
          <h1 className="modal-title fs-5" id="exampleModalLabel">Update Note</h1>
          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -103,12 +109,12 @@ function App() {
        <div className="modal-body">
          <form>
            <div className="mb-3">
-             <label htmlFor="title" className="col-form-label">Title:</label>
-             <input type="text" className="form-control" name='etitle' id="etitle" value={note.etitle} onChange={onChange}/>
+             <label htmlFor="title" className="col-form-label" style={{fontSize: "20px"}}>Title:</label>
+             <input type="text" className="form-control updateInput" name='etitle' id="etitle" value={note.etitle} onChange={onChange}/>
            </div>
            <div className="mb-3">
-             <label htmlFor="description" className="col-form-label">Description:</label>
-             <textarea className="form-control" id="edescription" name='edescription' value={note.edescription} onChange={onChange}></textarea>
+             <label htmlFor="description" className="col-form-label" style={{fontSize: "20px"}}>Description:</label>
+             <textarea ref={textAreaRef} className="form-control updateTextarea" id="edescription" name='edescription' value={note.edescription} onChange={onChange}></textarea>
            </div>
          </form>
        </div>
@@ -123,11 +129,15 @@ function App() {
 
 
     <div className="container text-center my-5">
+      <div className='my-5 heading'>
+        <p>Just A Simple Notes Saving App</p>
+      </div>
+
       <div className="row">
-        <div className="col-12 col-md-9 border">
+        <div className="col-12 col-md-8">
           <Addnote passNote={addItem}/>
         </div>
-        <div className="col-12 col-md-3 border">
+        <div className="col-12 col-md-4">
           {
             items.map((elem)=>{
               return(

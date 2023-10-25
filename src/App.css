@@ -1,1 +1,53 @@
+.backcolor{
+    background-color: rgb(255, 230, 198);
+}
 
+.textarea{
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px;
+}
+textarea {
+    resize: none;
+  }
+
+textarea:focus{
+    outline-style: none;
+}
+
+input:focus{
+    outline-style: none;
+}
+.addInput{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 25px;
+}
+.addTextArea{
+    font-family: 'Playpen Sans', cursive;
+    font-size: 21px;
+}
+.updateInput{
+    background-color: rgb(255, 230, 198);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 25px;
+}
+.updateInput:focus{
+    background-color: rgb(255, 230, 198);
+}
+.updateTextarea{
+    background-color: rgb(255, 230, 198);
+    font-family: 'Playpen Sans', cursive;
+    font-size: 21px;
+}
+.updateTextarea:focus{
+    background-color: rgb(255, 230, 198);
+}
+.card{
+    border: 1px solid black;
+    box-shadow: 5px 5px 20px;
+}
+.heading{
+    font-family: 'Indie Flower', cursive;
+    font-size: 40px;
+    font-weight: 600;
+}
